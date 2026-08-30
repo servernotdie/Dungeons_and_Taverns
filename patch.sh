@@ -21,12 +21,12 @@ trap "rm -rf $WORK_DIR" EXIT
 echo "Extracting $ZIP_FILE..."
 unzip -q "$ZIP_FILE" -d "$WORK_DIR/datapack"
 
-# Convert CRLF to LF in all mcfunction files
+# Convert CRLF to LF in all mcfunction and json files
 echo "Normalizing line endings..."
-find "$WORK_DIR/datapack" -name '*.mcfunction' -exec sed -i 's/\r$//' {} \;
+find "$WORK_DIR/datapack" \( -name '*.mcfunction' -o -name '*.json' \) -exec sed -i 's/\r$//' {} \;
 
 echo "Applying existing patch..."
-patch -Nt -p1 -d "$WORK_DIR/datapack" < "$SCRIPT_DIR/Dungeons_and_Taverns_Folia_Fix.patch" || true
+patch -Nt -p0 -d "$WORK_DIR/datapack" < "$SCRIPT_DIR/Dungeons_and_Taverns_Folia_Fix.patch" || true
 
 # Overwrite all broken functions with no-op to prevent Folia errors.
 echo "Patching broken functions for Folia compatibility..."
