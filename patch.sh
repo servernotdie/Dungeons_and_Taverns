@@ -28,6 +28,19 @@ find "$WORK_DIR/datapack" \( -name '*.mcfunction' -o -name '*.json' \) -exec sed
 echo "Applying existing patch..."
 patch -Nt -p0 -d "$WORK_DIR/datapack" < "$SCRIPT_DIR/Dungeons_and_Taverns_Folia_Fix.patch" || true
 
+# --- FIX: the Folia patch sets "weight": 0 on several custom enchantments
+# to try to disable them, but vanilla requires weight to be in [1;1024].
+# weight: 0 is invalid and crashes registry loading entirely.
+# These enchantments already have "supported_items": "minecraft:air" set
+# by the same patch, which is what actually prevents them from being
+# rollable on any item/table/trade - weight is irrelevant once no item
+# can match, so we just need it to be a valid number.
+echo "Fixing invalid weight:0 -> weight:1 on disabled enchantments..."
+ENCH_DIR="$WORK_DIR/datapack/data/nova_structures/enchantment"
+if [ -d "$ENCH_DIR" ]; then
+    grep -rlZ '"weight": 0' "$ENCH_DIR" 2>/dev/null | xargs -0 -r sed -i 's/"weight": 0/"weight": 1/g'
+fi
+
 # Overwrite all broken functions with no-op to prevent Folia errors.
 echo "Patching broken functions for Folia compatibility..."
 DP="$WORK_DIR/datapack/data/nova_structures/function"
