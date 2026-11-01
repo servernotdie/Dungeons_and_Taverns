@@ -1,0 +1,45 @@
+diff --git data/nova_structures/function/enchantment/ghasted_fireball_1.mcfunction data/nova_structures/function/enchantment/ghasted_fireball_1.mcfunction
+--- data/nova_structures/function/enchantment/ghasted_fireball_1.mcfunction
++++ data/nova_structures/function/enchantment/ghasted_fireball_1.mcfunction
+@@ -1,4 +1,2 @@
+ summon minecraft:fireball ~ ~ ~ {Tags:["dnt_ghasted_fireball"],ExplosionPower:1}
+-data modify entity @n[type=minecraft:fireball,tag=dnt_ghasted_fireball,sort=nearest] Motion set from entity @s Motion
+-data modify entity @n[type=minecraft:fireball,tag=dnt_ghasted_fireball,sort=nearest] Owner set from entity @s Owner
+ kill @s
+diff --git data/nova_structures/function/enchantment/ghasted_fireball_2.mcfunction data/nova_structures/function/enchantment/ghasted_fireball_2.mcfunction
+--- data/nova_structures/function/enchantment/ghasted_fireball_2.mcfunction
++++ data/nova_structures/function/enchantment/ghasted_fireball_2.mcfunction
+@@ -1,4 +1,2 @@
+ summon minecraft:fireball ~ ~ ~ {Tags:["dnt_ghasted_fireball"],ExplosionPower:2}
+-data modify entity @n[type=minecraft:fireball,tag=dnt_ghasted_fireball,sort=nearest] Motion set from entity @s Motion
+-data modify entity @n[type=minecraft:fireball,tag=dnt_ghasted_fireball,sort=nearest] Owner set from entity @s Owner
+ kill @s
+diff --git data/nova_structures/function/enchantment/ghasted_fireball_3.mcfunction data/nova_structures/function/enchantment/ghasted_fireball_3.mcfunction
+--- data/nova_structures/function/enchantment/ghasted_fireball_3.mcfunction
++++ data/nova_structures/function/enchantment/ghasted_fireball_3.mcfunction
+@@ -1,4 +1,2 @@
+ summon minecraft:fireball ~ ~ ~ {Tags:["dnt_ghasted_fireball"],ExplosionPower:3}
+-data modify entity @n[type=minecraft:fireball,tag=dnt_ghasted_fireball,sort=nearest] Motion set from entity @s Motion
+-data modify entity @n[type=minecraft:fireball,tag=dnt_ghasted_fireball,sort=nearest] Owner set from entity @s Owner
+ kill @s
+diff --git data/nova_structures/function/jockey/spawn_chicken_jockey_mount.mcfunction data/nova_structures/function/jockey/spawn_chicken_jockey_mount.mcfunction
+--- data/nova_structures/function/jockey/spawn_chicken_jockey_mount.mcfunction
++++ data/nova_structures/function/jockey/spawn_chicken_jockey_mount.mcfunction
+@@ -1,6 +1,4 @@
+ tag @s add dnt_chicken_jockey
+-data modify entity @s IsChickenJockey set value 1b
+-data modify entity @s PersistenceRequired set value 1b
+ execute summon zombie run execute at @s run ride @s mount @n[tag=dnt_chicken_jockey]
+ execute on controller run function nova_structures:jockey/spawn_chicken_jockey_zombie
+ tag @s remove dnt_chicken_jockey
+diff --git data/nova_structures/function/jockey/spawn_chicken_jockey_zombie.mcfunction data/nova_structures/function/jockey/spawn_chicken_jockey_zombie.mcfunction
+--- data/nova_structures/function/jockey/spawn_chicken_jockey_zombie.mcfunction
++++ data/nova_structures/function/jockey/spawn_chicken_jockey_zombie.mcfunction
+@@ -1,6 +1,4 @@
+-data modify entity @s IsBaby set value 1b
+-data modify entity @s PersistenceRequired set value 1b
+-data modify entity @s DeathLootTable set value "nova_structures:entities/chicken_jockey_zombie"
+ attribute @s minecraft:spawn_reinforcements modifier add minecraft:leader_zombie_bonus 0.625 add_value
+ attribute @s minecraft:max_health modifier add minecraft:leader_zombie_bonus 2.5 add_multiplied_total
+-data modify entity @s Health set value 50.0f
++attribute @s minecraft:max_health base set 50
